@@ -6,6 +6,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const morgan = require("morgan");
+app.use(morgan("dev"));
+
 const cors = require("cors");
 app.use(cors());
 
@@ -17,17 +20,12 @@ mongoose.connect(process.env.MONGODB_URI, {
   useFindAndModify: false,
 });
 mongoose.connection.on("open", function (ref) {
-  app.listen(3001, () => {
+  app.listen(3000, () => {
     console.log("Listening on port 3000...");
   });
-});
-
-app.get("/", (req, res) => {
-  console.log(`${req.method} request received...`);
-  res.send("Hello, welcome to the products api!");
 });
 
 const products = require("./routes/products.js");
 const users = require("./routes/users.js");
 app.use("/products", products);
-app.use("/users", users);
+app.use("/admin", users);
