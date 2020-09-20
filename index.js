@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+const morgan = require("morgan");
 
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -11,13 +12,17 @@ app.use(cors());
 
 app.use(express.json());
 
+
+
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
 mongoose.connection.on("open", function (ref) {
-  app.listen(3001, () => {
+  console.log("MongoDB connected");
+  app.listen(3000, () => {
     console.log("Listening on port 3000...");
   });
 });
@@ -27,7 +32,32 @@ app.get("/", (req, res) => {
   res.send("Hello, welcome to the products api!");
 });
 
-const products = require("./routes/products.js");
+app.use(morgan('dev'));
+
+const product = require("./routes/products.js");
 const users = require("./routes/users.js");
-app.use("/products", products);
+app.use("/products", product);
 app.use("/users", users);
+
+//ERRORS
+
+app.use((req, res, next) => {
+  const error = new Error("Endpoint Not Found");
+  error.status = 404;
+  next(error)
+});
+
+app.use((err, req, res, next) => {
+  if (!isProduction) {
+    console.log(err.stack);
+  }
+
+  res.status(err.status || 500);
+
+  res.json({
+    errors: {
+      message: err.message,
+      error: err,
+    },
+  });
+});
