@@ -28,4 +28,4 @@ mongoose.connection.on("open", function (ref) {
 const products = require("./routes/products.js");
 const users = require("./routes/users.js");
 app.use("/products", products);
-app.use("/admin", users);
+app.use("/users", users);

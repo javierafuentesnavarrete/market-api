@@ -1,3 +1,12 @@
-const router = require("express").Router();
+const mongoose = require("mongoose");
 
-module.exports = router;
+const ProductSchema = new mongoose.Schema(
+  {
+    title: { type: String},
+    user: { type: mongoose.Schema.Types.ObjectId}
+  },
+
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Product", ProductSchema);
