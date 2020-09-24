@@ -14,11 +14,6 @@ router.param("id", function(req, res, next, id) {
   .catch(next);
 })
 
-//Get by Id
-router.get("/:id", function(req, res, next) {
-  res.status(200).send(req.product);
-})
-
 //Edit Product
 router.put("/:id", (req, res, next) => {
   Product.findByIdAndUpdate(req.product.id, req.body)
@@ -27,7 +22,7 @@ router.put("/:id", (req, res, next) => {
     })
     .catch(next);
 });
-
+ 
 // Post Product
 router.post("/", (req, res, next) => {
   const product = new Product(req.body);
