@@ -16,6 +16,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
+
 mongoose.connection.on("open", function (ref) {
   app.listen(3001, () => {
     console.log("Listening on port 3000...");
