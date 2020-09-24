@@ -22,7 +22,7 @@ router.put("/:id", (req, res, next) => {
     })
     .catch(next);
 });
- 
+
 // Post Product
 router.post("/", (req, res, next) => {
   const product = new Product(req.body);
