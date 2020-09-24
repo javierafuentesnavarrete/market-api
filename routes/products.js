@@ -14,8 +14,14 @@ router.param("category", function(req, res, next, category) {
     .catch(next);
    });
    
-router.get(":id", (req, res, next) => {
-    res.status(200).send(req.product);
+router.get("/", (req, res, next) => {
+    console.log(req)
+    Product.find({})
+    .sort({ createdAt: "desc"})
+    .then((results) => {
+        return res.send(results);
+    })
+    .catch(next);
 });
 
 // router.post("/", (req, res, next) => {
