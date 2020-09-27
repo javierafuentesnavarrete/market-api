@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const morgan = require("morgan");
+app.use(morgan("dev"));
+
 const cors = require("cors");
 app.use(cors());
 
