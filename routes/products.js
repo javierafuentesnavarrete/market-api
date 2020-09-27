@@ -1,5 +1,25 @@
 const router = require("express").Router();
-const Product = require("../models/Product.js");
+const Product = require("../models/Product");
+
+
+router.param("category", function(req, res, next, category) {
+    Product.findById(category).then((product) => {
+      if (!product) {
+        res.status(404).send("Product not found");
+      } else {
+        req.product = product;
+        next();
+      }
+    })
+    .catch(next);
+   });
+   
+router.get("/", (req, res, next) => {
+    console.log(req)
+    Product.find({})
+    .sort({ createdAt: "desc"})
+    .then((results) => {
+        return res.send(results);
 
 //Product Parameter
 router.param("id", function(req, res, next, id) {
