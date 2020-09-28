@@ -15,11 +15,12 @@ router.param("category", function(req, res, next, category) {
    });
    
 router.get("/", (req, res, next) => {
-    console.log(req)
     Product.find({})
     .sort({ createdAt: "desc"})
     .then((results) => {
         return res.send(results);
+    })
+})
 
 //Product Parameter
 router.param("id", function(req, res, next, id) {

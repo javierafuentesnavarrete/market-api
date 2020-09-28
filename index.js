@@ -7,9 +7,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const morgan = require("morgan");
-app.use(morgan("dev"));
-
 const cors = require("cors");
 app.use(cors());
 
@@ -34,7 +31,7 @@ app.get("/", (req, res) => {
 });
 
 app.use((req, res) => {
-  console.log(req.type)
+  // console.log(req.type)
 });
 
 const products = require("./routes/products.js");

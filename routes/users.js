@@ -4,6 +4,7 @@ const Product = require("../models/Product.js");
 
 
 router.post("/", function (req, res, next) {
+  console.log("POST recieved")
   //server-side validation
   if (!req.body.firstname) {
     return res.status(422).send("First name can't be blank");
