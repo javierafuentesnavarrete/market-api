@@ -40,13 +40,11 @@ router.post("/", function (req, res, next) {
 });
 
 router.post("/login", (req, res, next) => {
-  //check for email
-  //if error send error message
+  
   if (!req.body.email) {
     res.status(422).send("Email can't be blank");
   }
 
-  //find matching user based on email address
   User.findOne({ email: req.body.email })
     .then(function (user) {
       if (!user) {
