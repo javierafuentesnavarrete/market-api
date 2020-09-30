@@ -25,15 +25,6 @@ mongoose.connection.on("open", function (ref) {
   });
 });
 
-app.get("/", (req, res) => {
-  console.log(`${req.method} request received...`);
-  res.send("Hello, welcome to the products api!");
-});
-
-app.use((req, res) => {
-  // console.log(req.type)
-});
-
 const products = require("./routes/products.js");
 const users = require("./routes/users.js");
 app.use("/products", products);
