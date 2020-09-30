@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Node api for a C2C marketplace",
   "main": "index.js",
+  "dev": "nodemon index.js",
   "scripts": {
     "dev": "nodemon index.js"
   },
