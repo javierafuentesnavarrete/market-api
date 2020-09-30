@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const morgan = require("morgan");
+app.use(morgan("dev"));
+
 const cors = require("cors");
 app.use(cors());
 
@@ -21,7 +24,6 @@ mongoose.connect(process.env.MONGODB_URI, {
   useFindAndModify: false,
 });
 mongoose.connection.on("open", function (ref) {
-  console.log("MongoDB connected");
   app.listen(3000, () => {
     console.log("Listening on port 3000...");
   });
