@@ -1,18 +1,6 @@
 const router = require("express").Router();
 const Product = require("../models/Product");
-
-
-router.param("category", function(req, res, next, category) {
-    Product.findById(category).then((product) => {
-      if (!product) {
-        res.status(404).send("Product not found");
-      } else {
-        req.product = product;
-        next();
-      }
-    })
-    .catch(next);
-   });
+const Comment = require("../models/Comment");
    
 router.get("/", (req, res, next) => {
     Product.find({})
@@ -35,6 +23,11 @@ router.param("id", function(req, res, next, id) {
   .catch(next);
 })
 
+//Get by Id
+router.get("/:id", (req, res, next) => {
+  return res.status(200).send(req.product);
+})
+
 //Edit Product
 router.put("/:id", (req, res, next) => {
   Product.findByIdAndUpdate(req.product.id, req.body)
@@ -47,10 +40,29 @@ router.put("/:id", (req, res, next) => {
 // Post Product
 router.post("/", (req, res, next) => {
   const product = new Product(req.body);
-  product.save().then((result => {
+  product.save().then((result) => {
     res.status(201).send(result);
-  }))
+  })
   .catch(next);
 })
+
+//Post Products Comments
+router.post("/:id/comments", (req, res, next) => {
+  const comment = new Comment(req.body);
+  comment.save().then((result) => {
+    res.status(201).send(result);
+    console.log(comment.product);
+  })
+  .catch(next);
+})
+
+router.get("/:id/comments", (req, res, next) => {
+  Comment.find({product: req.product._id})
+    .sort({ createdAt: "desc" })
+    .then((comments) => {
+      res.status(200).send(comments);
+    });
+});
+
 
 module.exports = router;
