@@ -64,5 +64,13 @@ router.get("/:id/comments", (req, res, next) => {
     });
 });
 
+router.delete("/:id", (req, res, next) => {
+  Product.findByIdAndDelete(req.product.id)
+  .then((product) => {
+    res.status(204).send(product);
+  })
+  .catch(next);
+});
+
 
 module.exports = router;
