@@ -58,11 +58,18 @@ router.post("/:id/comments", (req, res, next) => {
 
 router.get("/:id/comments", (req, res, next) => {
   Comment.find({product: req.product._id})
-    .sort({ createdAt: "desc" })
+    .sort({ createdAt: 1 })
     .then((comments) => {
       res.status(200).send(comments);
     });
 });
 
+router.delete("/:id", (req, res, next) => {
+  Product.findByIdAndDelete(req.product.id)
+  .then((product) => {
+    res.status(204).send(product);
+  })
+  .catch(next);
+});
 
 module.exports = router;
