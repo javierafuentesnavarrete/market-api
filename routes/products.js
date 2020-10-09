@@ -58,7 +58,7 @@ router.post("/:id/comments", (req, res, next) => {
 
 router.get("/:id/comments", (req, res, next) => {
   Comment.find({product: req.product._id})
-    .sort({ createdAt: "desc" })
+    .sort({ createdAt: 1 })
     .then((comments) => {
       res.status(200).send(comments);
     });
