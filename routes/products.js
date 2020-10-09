@@ -58,18 +58,12 @@ router.post("/:id/comments", (req, res, next) => {
 
 router.get("/:id/comments", (req, res, next) => {
   Comment.find({product: req.product._id})
-<<<<<<< HEAD
-    .sort({ createdAt: "desc" })
-=======
     .sort({ createdAt: 1 })
->>>>>>> upstream/master
     .then((comments) => {
       res.status(200).send(comments);
     });
 });
 
-<<<<<<< HEAD
-=======
 router.delete("/:id", (req, res, next) => {
   Product.findByIdAndDelete(req.product.id)
   .then((product) => {
@@ -78,6 +72,5 @@ router.delete("/:id", (req, res, next) => {
   .catch(next);
 });
 
->>>>>>> upstream/master
 
 module.exports = router;
