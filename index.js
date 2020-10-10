@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-console.log(process.env.MONGODB_URI)
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
